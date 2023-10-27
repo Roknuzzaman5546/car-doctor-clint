@@ -1,13 +1,23 @@
+import { useContext } from 'react';
 import signUpImg from '../../public/assets/images/login/login.svg'
+import { Authcontext } from '../Authprovider/Authprovider';
 
 const Signup = () => {
-
+    const { signup } = useContext(Authcontext)
     const handleSignUp = event => {
         event.preventDefault();
         const from = event.target;
         const email = from.email.value;
         const password = from.password.value;
         console.log(email, password)
+        signup(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
     }
 
     return (

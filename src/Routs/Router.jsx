@@ -3,6 +3,7 @@ import Main from "../Components/Main/Main";
 import Home from "../Components/Home/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
+import Chekout from "../Pages/Chekout";
 
 const router = createBrowserRouter([
     {
@@ -18,8 +19,13 @@ const router = createBrowserRouter([
           element: <Login></Login>
         },
         {
-          path: "/signup",
+          path: "/signup", 
           element: <Signup></Signup>
+        },
+        {
+          path: "/chekout/:id",
+          element: <Chekout></Chekout>,
+          loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
         }
       ]
     },
