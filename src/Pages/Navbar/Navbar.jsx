@@ -21,7 +21,7 @@ const Navbar = () => {
         <li><NavLink to="/about">About</NavLink></li>
         <li><NavLink to="/services">Services</NavLink></li>
         {
-            user.email ? <li><button onClick={handlelogOut}>Sign out</button></li> : <li><NavLink to="/login">Log in</NavLink></li>
+            user ? <li><button onClick={handlelogOut}>Sign out</button></li> : <li><NavLink to="/login">Log in</NavLink></li>
 
         }
     </>

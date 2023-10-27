@@ -13,7 +13,10 @@ const Login = () => {
         signin(email, password)
         .then(result =>{
             const user = result.user;
-            console.log(user)
+            if (user) {
+                alert('log in succesfully')                
+            }
+            from.reset()
         })
         .catch(error =>{
             console.log(error)
