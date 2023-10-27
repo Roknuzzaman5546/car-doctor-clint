@@ -5,7 +5,7 @@ import { Authcontext } from '../Authprovider/Authprovider';
 const Login = () => {
     const {signin} = useContext(Authcontext)
     const handleLogin = event =>{
-        event.preventDefault();
+        event.preventDefault();    
         const from = event.target;
         const email = from.email.value;
         const password = from.password.value;

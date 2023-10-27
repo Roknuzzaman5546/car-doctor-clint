@@ -1,13 +1,29 @@
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../public/assets/icons/logo.svg'
-import { AiOutlineSearch,  } from 'react-icons/ai';
-import { BsFillHandbagFill }  from 'react-icons/bs';
+import { AiOutlineSearch, } from 'react-icons/ai';
+import { BsFillHandbagFill } from 'react-icons/bs';
+import { useContext } from 'react';
+import { Authcontext } from '../../Authprovider/Authprovider';
 
 const Navbar = () => {
+
+    const { user, logout } = useContext(Authcontext)
+
+    const handlelogOut = () => {
+        logout()
+        .then()
+        .catch(error =>{
+            console.log(error.message)
+        })
+    }
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
         <li><NavLink to="/services">Services</NavLink></li>
+        {
+            user.email ? <li><button onClick={handlelogOut}>Sign out</button></li> : <li><NavLink to="/login">Log in</NavLink></li>
+
+        }
     </>
     return (
         <div className="navbar bg-base-100 mb-10 mt-3">
@@ -32,7 +48,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 <button className="btn font-bold">
                     <BsFillHandbagFill></BsFillHandbagFill>
-                  <AiOutlineSearch></AiOutlineSearch>
+                    <AiOutlineSearch></AiOutlineSearch>
                     <h2 className='ml-2'>Appointment</h2>
                 </button>
             </div>

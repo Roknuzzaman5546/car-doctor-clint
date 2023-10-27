@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { Authcontext } from "../Authprovider/Authprovider";
 
 const Chekout = () => {
     const service = useLoaderData();
-    const { _id, title, price } = service;
+    const { user } = useContext(Authcontext)
 
-    const handleChekout = event =>{
+    const { title, img } = service;
+
+    const handleChekout = event => {
         event.preventDefault();
         const from = event.target;
         const name = from.name.value;
@@ -12,13 +16,30 @@ const Chekout = () => {
         const email = from.email.value;
         const number = from.number.value;
         const chekOut = {
-            name, 
-            date, 
-            email, 
-            number
+            name,
+            date,
+            email,
+            number,
+            img
         }
-        fetch('')
+        
+        console.log(chekOut)
+        fetch('http://localhost:5000/orders', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(chekOut)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.insertedId) {
+                    alert("order is confirm")
+                }
+            })
     }
+
 
     return (
         <div>
@@ -29,7 +50,7 @@ const Chekout = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text" name="name" placeholder="Name" className="input input-bordered" required />
+                            <input type="text" name="name" defaultValue={title} className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -41,7 +62,7 @@ const Chekout = () => {
                             <label className="label">
                                 <span className="label-text">Your Email</span>
                             </label>
-                            <input type="email" name="email" placeholder="Email" className="input input-bordered" required />
+                            <input type="email" name="email" defaultValue={user.email} className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -50,9 +71,9 @@ const Chekout = () => {
                             <input type="number" name="number" placeholder="Number" className="input input-bordered" required />
                         </div>
                     </div>
-                        <div className="form-control mt-6">
-                            <input type="submit" className=" btn btn-error" value="Order confirm" />
-                        </div>
+                    <div className="form-control mt-6">
+                        <input type="submit" className=" btn btn-error" value="Order confirm" />
+                    </div>
                 </form>
             </div>
         </div>
