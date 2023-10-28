@@ -4,6 +4,8 @@ import Home from "../Components/Home/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import Chekout from "../Pages/Chekout";
+import Orders from "../Pages/Orders";
+import Privetrout from "../Privetrout/Privetrout";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
           path: "/chekout/:id",
           element: <Chekout></Chekout>,
           loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+        },
+        {
+          path: "/orders",
+          element: <Privetrout><Orders></Orders></Privetrout>
         }
       ]
     },

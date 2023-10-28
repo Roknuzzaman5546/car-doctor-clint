@@ -11,17 +11,22 @@ const Navbar = () => {
 
     const handlelogOut = () => {
         logout()
-        .then()
-        .catch(error =>{
-            console.log(error.message)
-        })
+            .then()
+            .catch(error => {
+                console.log(error.message)
+            })
     }
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
         <li><NavLink to="/services">Services</NavLink></li>
         {
-            user ? <li><button onClick={handlelogOut}>Sign out</button></li> : <li><NavLink to="/login">Log in</NavLink></li>
+            user ?
+                <div>
+                    <li> <NavLink to="/orders">Orders</NavLink></li>
+                    <li><button onClick={handlelogOut}>Sign out</button></li>
+                </div>
+                : <li><NavLink to="/login">Log in</NavLink></li>
 
         }
     </>
