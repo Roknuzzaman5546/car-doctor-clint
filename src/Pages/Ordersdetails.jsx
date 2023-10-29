@@ -1,5 +1,5 @@
 const Ordersdetails = ({ order, handleDelete, handleUpdate }) => {
-    const { _id, img, name, date, number, email } = order;
+    const { _id, img, name, date, number, email, status } = order;
 
     return (
         <tr>
@@ -27,7 +27,12 @@ const Ordersdetails = ({ order, handleDelete, handleUpdate }) => {
             </td>
             <td className=" text-xl font-bold">{date}</td>
             <th>
-                <button className="btn btn-ghost font-bold" onClick={() =>handleUpdate(_id)}>Confirm</button>
+
+                { status ? 
+                        <span className=" btn font-bold btn-accent">Confirmed</span>
+                        :
+                    <button className="btn btn-ghost font-bold" onClick={() => handleUpdate(_id)}>Confirm</button>
+                }
             </th>
         </tr>
     );

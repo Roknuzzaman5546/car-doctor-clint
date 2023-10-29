@@ -1,28 +1,34 @@
 import { useContext } from 'react';
 import loginimg from '../../public/assets/images/login/login.svg'
 import { Authcontext } from '../Authprovider/Authprovider';
+import axios from 'axios';
 
 const Login = () => {
-    const {signin} = useContext(Authcontext)
-    const handleLogin = event =>{
-        event.preventDefault();    
+    const { signin } = useContext(Authcontext)
+    const handleLogin = event => {
+        event.preventDefault();
         const from = event.target;
         const email = from.email.value;
         const password = from.password.value;
         console.log(email, password)
         signin(email, password)
-        .then(result =>{
-            const user = result.user;
-            if (user) {
-                alert('log in succesfully')                
-            }
-            from.reset()
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                const user = { email }
+                axios.post('http://localhost:5000/jwt', user)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                if (loggedUser) {
+                    alert('log in succesfully')
+                }
+                from.reset()
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
-    
+
     return (
         <div>
             <div className="hero min-h-screen">

@@ -14,47 +14,46 @@ const Orders = () => {
             .then(data => setOrders(data))
     }, [url])
 
-    const handleUpdate = id =>{
-        console.log(id , ('delete this'))
+    const handleUpdate = id => {
+        console.log(id, ('delete this'))
         fetch(`http://localhost:5000/orders/${id}`, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
-                'content-type' : 'application/jsonn' 
+                'content-type': 'application/json'
             },
-            body: JSON.stringify({status : 'confirmed'})
+            body: JSON.stringify({ status: 'confirmed' })
         })
-        .then(res => res.json())
-        .then(data =>{
-            console.log(data)
-            if (data.modifiedCount) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Do you want to continue',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                  })
-            }
-        })
+
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    const remanings = orders.filter(order => order._id !== id)
+                    const updated = orders.find(order => order._id === id)
+                    const newdata = [updated, ...remanings]
+                    setOrders(newdata)
+                }
+            })
     }
 
-    const handleDelete = id =>{
+    const handleDelete = id => {
         fetch(`http://localhost:5000/orders/${id}`, {
             method: 'DELETE'
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if (data.deletedCount) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Do you want to continue',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                  })
-                  const remaings = orders.filter(order => order._id !== id)
-                  setOrders(remaings)
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.deletedCount) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Do you want to continue',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+                    const remaings = orders.filter(order => order._id !== id)
+                    setOrders(remaings)
+                }
+            })
     }
 
     return (
