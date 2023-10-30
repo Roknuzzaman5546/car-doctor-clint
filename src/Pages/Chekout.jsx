@@ -19,8 +19,8 @@ const Chekout = () => {
             name,
             date,
             email,
-            number,
-            img
+            number,   
+            img  
         }
         
         console.log(chekOut)

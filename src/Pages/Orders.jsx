@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Authcontext } from "../Authprovider/Authprovider";
 import Ordersdetails from "./Ordersdetails";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Orders = () => {
     const { user } = useContext(Authcontext)
@@ -9,9 +10,14 @@ const Orders = () => {
     const url = (`http://localhost:5000/orders?email=${user.email}`)
 
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setOrders(data))
+        axios.get(url, {withCredentials: true})
+            .then(res => {
+                setOrders(res.data)
+            })
+
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => setOrders(data))
     }, [url])
 
     const handleUpdate = id => {
@@ -28,11 +34,17 @@ const Orders = () => {
             .then(data => {
                 console.log(data)
                 if (data.modifiedCount > 0) {
-                    const remanings = orders.filter(order => order._id !== id)
-                    const updated = orders.find(order => order._id === id)
-                    const newdata = [updated, ...remanings]
-                    setOrders(newdata)
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Updated successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
                 }
+                const remanings = orders.filter(order => order._id !== id)
+                const updated = orders.find(order => order._id === id)
+                const newdata = [updated, ...remanings]
+                setOrders(newdata)
             })
     }
 
