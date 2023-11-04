@@ -1,10 +1,11 @@
-import { useContext } from 'react';
 import loginimg from '../../public/assets/images/login/login.svg'
-import { Authcontext } from '../Authprovider/Authprovider';
-import axios from 'axios';
+// import { useContext } from 'react';
+// import { Authcontext } from '../Authprovider/Authprovider';
+import useAuth from '../Hooks/Useauth';
 
 const Login = () => {
-    const { signin } = useContext(Authcontext)
+    // const { signin } = useContext(Authcontext)
+    const { signin } = useAuth();
     const handleLogin = event => {
         event.preventDefault();
         const from = event.target;
@@ -14,11 +15,6 @@ const Login = () => {
         signin(email, password)
             .then(result => {
                 const loggedUser = result.user;
-                const user = { email }
-                axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
-                    .then(res => {
-                        console.log(res.data)
-                    })
                 if (loggedUser) {
                     alert('log in succesfully')
                 }

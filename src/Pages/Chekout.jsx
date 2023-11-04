@@ -24,7 +24,7 @@ const Chekout = () => {
         }
         
         console.log(chekOut)
-        fetch('http://localhost:5000/orders', {
+        fetch('https://car-doctor-resources.web.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

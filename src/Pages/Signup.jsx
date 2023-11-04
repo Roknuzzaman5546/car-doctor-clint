@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import signUpImg from '../../public/assets/images/login/login.svg'
 import { Authcontext } from '../Authprovider/Authprovider';
-
+ 
 const Signup = () => {
     const { signup } = useContext(Authcontext)
     const handleSignUp = event => {

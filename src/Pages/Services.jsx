@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Servicesdetails from "./Servicesdetails";
 
 const Services = () => {
-    const [services, setservices] = useState([]);
+    const [services, setServices] = useState([]);
 
-    useEffect( () =>{
-        fetch('http://localhost:5000/services')
+    useEffect(() => {
+        fetch('https://car-doctor-resources.web.app/services')
         .then(res => res.json())
-        .then(data => setservices(data))
+        .then(data => setServices(data))
     }, [])
+  
 
     return (
         <div className=" mt-5">
@@ -20,7 +20,10 @@ const Services = () => {
             </div>
             <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
                 {
-                    services.map(servic => <Servicesdetails key={servic._id} servic={servic}></Servicesdetails>)
+                    services.map(servic => <Servicesdetails
+                        key={servic._id}
+                        servic={servic} 
+                    ></Servicesdetails>)
                 }
             </div>
         </div>

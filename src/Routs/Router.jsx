@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         {
           path: "/chekout/:id",
           element: <Chekout></Chekout>,
-          loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+          loader: ({params}) => fetch(`https://car-doctor-resources.web.app/services/${params.id}`)
         },
         {
           path: "/orders",

@@ -33,7 +33,8 @@ const Contactlist = () => {
                 </div>
             </div>
         </div>
-    );
-    
+    );  
 };
+
+
 export default Contactlist;

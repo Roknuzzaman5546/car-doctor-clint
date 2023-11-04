@@ -2,15 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import { Authcontext } from "../Authprovider/Authprovider";
 import Ordersdetails from "./Ordersdetails";
 import Swal from "sweetalert2";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const Orders = () => {
+    const axiosSecure = useAxiosSecure();
     const { user } = useContext(Authcontext)
     const [orders, setOrders] = useState([])
-    const url = (`http://localhost:5000/orders?email=${user.email}`)
+    const url = (`/orders?email=${user.email}`)
 
     useEffect(() => {
-        axios.get(url, {withCredentials: true})
+        axiosSecure.get(url)
             .then(res => {
                 setOrders(res.data)
             })
@@ -18,11 +20,11 @@ const Orders = () => {
         // fetch(url)
         //     .then(res => res.json())
         //     .then(data => setOrders(data))
-    }, [url])
+    }, [url, axiosSecure])
 
     const handleUpdate = id => {
         console.log(id, ('delete this'))
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://car-doctor-resources.web.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -49,7 +51,7 @@ const Orders = () => {
     }
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://car-doctor-resources.web.app/orders/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
